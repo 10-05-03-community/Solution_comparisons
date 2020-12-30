@@ -80,16 +80,11 @@ bool have_comparisons_solution(std::vector<int> &v_a, std::vector<int> &v_b, std
 
         // здесь ai не кратно mi
         // сделаем 0 < ai < mi
-        if (v_a[i] < 0) {
-            // v_a[i] = v_a[i] % v_m[i] - для отрицательных так нельзя
-            v_a[i] = v_a[i] + (std::abs(v_a[i]) / v_m[i]) * (v_m[i] + 1);
-            // if abs(v_ap[i]) was less then v_m[i]
-            if (v_a[i] < 0) {
-                v_a[i] += v_m[i];
-            }
-        } else {
-            v_a[i] %= v_m[i];
+        // сделаем 0 < ai < mi
+        while (v_a[i] < 0) {
+            v_a[i] += v_m[i];
         }
+        v_a[i] %= v_m[i];
 
         // проверим кратность bi НОД(ai, mi)
         int gcd_mi_ai = GCD(v_m[i], v_a[i]);
@@ -163,15 +158,10 @@ std::pair<int, int> get_comparisons_solution(std::vector<int> v_a, std::vector<i
     }
 
     // сделаем ответ неотрицательным и в пределах m
-    if (b1 < 0) {
-        b1 = b1 + (std::abs(b1) / m1) * (m1 + 1);
-        // if abs(b1) was less then m1
-        if (b1 < 0) {
-            b1 += m1;
-        }
-    } else {
-        b1 %= m1;
+    while (b1 < 0) {
+        b1 += m1;
     }
+    b1 %= m1;
 
     return  std::make_pair(b1, m1);
 }
